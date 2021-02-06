@@ -14,8 +14,8 @@ bool setMatrixValue(const int, const double,  MATRIX*);
 bool setMatrixValues(double*, size_t, MATRIX*);
 double inputNumber();
 void inputValues(MATRIX*);
-void inputRow(int, VECTOR* v);
-int inputNumbers();
+void inputRow(int, VECTOR* v); 
+int inputNumbers(); 
 void printMatrixRow(MATRIX*, int);
-void printMatrix(MATRIX*);
+void printMatrix(MATRIX*); 
 #endif//__matrix_h__

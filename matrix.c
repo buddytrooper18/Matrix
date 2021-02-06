@@ -77,16 +77,17 @@ void freeBuffer(char** line) {
   }
 }
 
+//put a printf after line 86 and call it vector.size
 void inputRow(int i, VECTOR* v) {
   char* line = NULL;
   size_t count = 0;
   if(getline(&line, &count, stdin) > 0) {
-    printf("line: %s\n", line);
+    //printf("line: %s\n", line);
     char* token = line;
     char* value = NULL;
-    for(int j = 0; j < v -> size && (value = strtok(token, " \t\n")) != NULL; token = NULL) {
+    for(int j = 0; j < v -> size && (value = strtok(token, " \t\n")) != NULL; token = NULL, j++) {
       v -> items[j] = inputNumber(value);
-      printf("value: %g\n", v -> items[j]);  
+      //printf("value: %g\n", v -> items[j]);  
     }
   }
   freeBuffer(&line);
@@ -128,4 +129,4 @@ void printMatrix(MATRIX* m) {
       printMatrixRow(m, i);
     }
   }
-}
+} 

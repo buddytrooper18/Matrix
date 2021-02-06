@@ -15,8 +15,48 @@ doing this will help learning the following concepts:
 //typedef Vector<double> VECTORD;
 
 //is matrix Vector<Vector<T>>?
+#define BUFFERSIZE 16
+typedef enum operation {
+  ex = -1, tpose, scalmult, scaldiv, det, inv
+} OPERATION;
+int operationAsk() {
+  char buffer[BUFFERSIZE] = {'\0'};
+  printf("enter operation: \nt = transpose\nx = scalar multiplication\n/ = scalar division\nd = determinant\ni = inverse\ne = exit\n");
+  if (scanf("%c", buffer) > 0) {
+    switch(buffer[0]) {
+      case't':
+        return tpose;
+      case'x':
+        return scalmult;
+      case'/':
+        return scaldiv;
+      case'd':
+        return det;
+      case'i':
+        return inv;
+      case'e':
+        return ex;
+      default: 
+        break;
+    }
+  }
+  return ex;
+}
 
-
+bool doOperation(OPERATION code, MATRIX* m, MATRIX** result) {
+  switch(code) {
+    case tpose:
+        return doTranspose(m, result);
+    case scalmult:
+        return scalmult;
+    case scaldiv:
+        return scaldiv;
+    case det:
+        return det;
+    case inv:
+        return inv;
+  }
+}
 
 MATRIX* createSetupMatrix(int count, const char** values) {
   if(count > 1 && values != NULL) {
@@ -46,6 +86,12 @@ int main(int argc, char const *argv[]) {
     inputValues(m);
     printf("matrixInput _ _ _ _ _ _ _\n");
     printMatrix(m);
+    int code;
+    MATRIX* result = NULL;
+    while((code = operationAsk())!= ex) {
+      doOperation(code, m, result);
+    }
+    operation(code);
     freeMatrix(&m);
     return 0;
     
