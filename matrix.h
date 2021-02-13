@@ -16,6 +16,11 @@ double inputNumber();
 void inputValues(MATRIX*);
 void inputRow(int, VECTOR* v); 
 int inputNumbers(); 
+bool doTranspose(MATRIX*, MATRIX**);
+bool doScalarMultiplication(MATRIX*, MATRIX**);
+bool doScalarDivision(MATRIX*, MATRIX**);
+bool doDeterminant(MATRIX*, MATRIX**);
+bool doInverse(MATRIX*, MATRIX**);
 void printMatrixRow(MATRIX*, int);
 void printMatrix(MATRIX*); 
 #endif//__matrix_h__

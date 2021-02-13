@@ -41,43 +41,22 @@ int operationAsk() {
   return EX;
 }
 
-bool doTranspose(MATRIX* m, MATRIX** result) {
-  
-  return false;
-}
-
-bool scalarMultiplication(MATRIX* m, MATRIX** result) {
-  
-  return false;
-}
-
-bool scalarDivision(MATRIX* m, MATRIX** result) {
-  
-  return false;
-}
-
-bool determinant(MATRIX* m, MATRIX** result) {
-  
-  return false;
-}
-
-bool inverse(MATRIX* m, MATRIX** result) {
-  
-  return false;
-}
 
 bool doOperation(OPERATION code, MATRIX* m, MATRIX** result) {
   switch(code) {
     case TPOSE:
         return doTranspose(m, result);
     case SCALMULT:
-        return scalmult;
+        return doScalarMultiplication(m, result);
     case SCALDIV:
-        return scaldiv;
+        return doScalarDivision(m, result);
     case DET:
-        return det;
+        return doDeterminant(m, result);
     case INV:
-        return inv;
+        return doInverse(m, result);
+    default: 
+      break;
+    
   }
   return false;
 }
@@ -112,11 +91,12 @@ int main(int argc, char const *argv[]) {
     printMatrix(m);
     int code;
     MATRIX* result = NULL;
-    while((code = operationAsk())!= ex) {
-      doOperation(code, m, result);
+    while((code = operationAsk())!= EX) {
+      doOperation(code, m, &result);
     }
-    operation(code);
+    //operation(code);
     freeMatrix(&m);
+    freeMatrix(&result);
     return 0;
     
 

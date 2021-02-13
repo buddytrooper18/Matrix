@@ -130,3 +130,33 @@ void printMatrix(MATRIX* m) {
     }
   }
 } 
+
+double inputFactor(const char* msg) {
+  printf("enter %s\n", msg);
+  double n = 0.0;
+}
+
+bool doTranspose(MATRIX* m, MATRIX** result) {
+ 
+  return false;
+}
+
+bool doScalarMultiplication(MATRIX* m, MATRIX** result) {
+
+  return false;
+}
+
+bool doScalarDivision(MATRIX* m, MATRIX** result) {
+  
+  return false;
+}
+
+bool doDeterminant(MATRIX* m, MATRIX** result) {
+  
+  return false;
+} 
+ 
+bool doInverse(MATRIX* m, MATRIX** result) {
+
+  return false;
+}
