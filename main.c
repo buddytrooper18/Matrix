@@ -15,47 +15,71 @@ doing this will help learning the following concepts:
 //typedef Vector<double> VECTORD;
 
 //is matrix Vector<Vector<T>>?
-#define BUFFERSIZE 16
 typedef enum operation {
-  ex = -1, tpose, scalmult, scaldiv, det, inv
+  EX = -1, TPOSE, SCALMULT, SCALDIV, DET, INV
 } OPERATION;
 int operationAsk() {
-  char buffer[BUFFERSIZE] = {'\0'};
+  char input = '\0';
   printf("enter operation: \nt = transpose\nx = scalar multiplication\n/ = scalar division\nd = determinant\ni = inverse\ne = exit\n");
-  if (scanf("%c", buffer) > 0) {
-    switch(buffer[0]) {
+  if (scanf("%c", &input) > 0) {
+    switch(input) {
       case't':
-        return tpose;
+        return TPOSE;
       case'x':
-        return scalmult;
+        return SCALMULT;
       case'/':
-        return scaldiv;
+        return SCALDIV;
       case'd':
-        return det;
+        return DET;
       case'i':
-        return inv;
+        return INV;
       case'e':
-        return ex;
-      default: 
+        return EX;
         break;
     }
   }
-  return ex;
+  return EX;
+}
+
+bool doTranspose(MATRIX* m, MATRIX** result) {
+  
+  return false;
+}
+
+bool scalarMultiplication(MATRIX* m, MATRIX** result) {
+  
+  return false;
+}
+
+bool scalarDivision(MATRIX* m, MATRIX** result) {
+  
+  return false;
+}
+
+bool determinant(MATRIX* m, MATRIX** result) {
+  
+  return false;
+}
+
+bool inverse(MATRIX* m, MATRIX** result) {
+  
+  return false;
 }
 
 bool doOperation(OPERATION code, MATRIX* m, MATRIX** result) {
   switch(code) {
-    case tpose:
+    case TPOSE:
         return doTranspose(m, result);
-    case scalmult:
+    case SCALMULT:
         return scalmult;
-    case scaldiv:
+    case SCALDIV:
         return scaldiv;
-    case det:
+    case DET:
         return det;
-    case inv:
+    case INV:
         return inv;
   }
+  return false;
 }
 
 MATRIX* createSetupMatrix(int count, const char** values) {
