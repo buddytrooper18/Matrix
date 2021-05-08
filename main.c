@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <math.h>
 #include "matrix.h"
-
-//hw: work on inputNumbers and use strtok()
+#define EPSILON 0.00000000000000000001
 
 /* We will examine the vector, matrix, and table structures using vanilla C 
 doing this will help learning the following concepts: 
@@ -20,7 +20,7 @@ typedef enum operation {
 } OPERATION;
 int operationAsk() {
   char input = '\0';
-  printf("enter operation: \nt = transpose\nx = scalar multiplication\n/ = scalar division\nd = determinant\ni = inverse\ne = exit\n");
+  printf("enter operation: \nt - transpose\nx - scalar multiplication\n/ - scalar division\nd - determinant\ni - inverse\ne - exit\n");
   if (scanf("%c", &input) > 0) {
     switch(input) {
       case't':
@@ -41,15 +41,18 @@ int operationAsk() {
   return EX;
 }
 
+double inputFactor(const char*);
 
 bool doOperation(OPERATION code, MATRIX* m, MATRIX** result) {
+  double factor;
   switch(code) {
     case TPOSE:
         return doTranspose(m, result);
     case SCALMULT:
-        return doScalarMultiplication(m, result);
+        return doScalarMultiplication(m, inputFactor("multiplier"), result);
     case SCALDIV:
-        return doScalarDivision(m, result);
+        factor = inputFactor("divisor");
+        return fabs(factor) >= EPSILON && doScalarMultiplication(m, 1.0/factor, result);
     case DET:
         return doDeterminant(m, result);
     case INV:

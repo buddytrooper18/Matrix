@@ -2,6 +2,7 @@
 #include <ctype.h>
 #include <string.h>
 #include <stdio.h>
+#include <math.h>
 #include "matrix.h"
 
 static const char* skipSpaces(const char*);
@@ -54,7 +55,7 @@ double inputNumber(const char* number) { //dostnwork
   int n = 0;
   if (number != NULL && *number != '\0') {
     n = sscanf(number, "%lg", &result);
-    //printf("result: %g\n", result);
+    printf("result: %g\n", result);
     return result;
   }
   return 0;
@@ -80,7 +81,7 @@ void freeBuffer(char** line) {
 //put a printf after line 86 and call it vector.size
 void inputRow(int i, VECTOR* v) {
   char* line = NULL;
-  size_t count = 0;
+  size_t count = 0; 
   if(getline(&line, &count, stdin) > 0) {
     //printf("line: %s\n", line);
     char* token = line;
@@ -131,18 +132,52 @@ void printMatrix(MATRIX* m) {
   }
 } 
 
+int matrixItemCount(MATRIX* m) {
+  return m != NULL ? m -> count * m -> rows[0]->size : 0;
+}
+
+
 double inputFactor(const char* msg) {
   printf("enter %s\n", msg);
   double n = 0.0;
+  return scanf("%lg", &n) > 0 ? n : NAN;
 }
 
 bool doTranspose(MATRIX* m, MATRIX** result) {
- 
+  *result = initializeMatrix(m->count, m->rows[0]->size);
+  if(result != NULL) {
+    /*for(int row = 0; row < m -> count; row++) {
+      VECTOR* r = m -> rows[row];
+      for(int col = 0; col < r -> size; col++) {
+        //r -> items[col] *= m->rows[row]->items[col];
+        (*result)->
+      }*/
+    for(int row = 0; row < (*result)->count; row++) {
+      VECTOR* r = (*result)->rows[row];
+      for(int col = 0; col < r->size; col++) {
+        r->items[col] = m->rows[col]->items[row];
+      }  
+      printMatrixRow(*result, row);
+    }
+    return true;
+  }
   return false;
 }
 
-bool doScalarMultiplication(MATRIX* m, MATRIX** result) {
-
+bool doScalarMultiplication(MATRIX* m, const double factor, MATRIX** result) {
+  *result = NULL;
+  printf("factor = %g\n", factor);
+  if(!isnan(factor)) {
+    for(int row = 0; row < m -> count; row++) {
+      VECTOR* r = m -> rows[row];
+      for(int col = 0; col < r -> size; col++) {
+        r -> items[col] *= factor;
+      }
+    } 
+    printf("output matrix: \n");
+    printMatrix(m);  
+    return true;
+  }
   return false;
 }
 
