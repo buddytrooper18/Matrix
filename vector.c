@@ -32,3 +32,20 @@ void logVector(VECTOR* vector) {
         printf("%f\n", vector->items[i]);
     }
 }
+
+void copyItems(const int start, const int end, VECTOR* source, VECTOR* dst) {
+  if(source != NULL && dst != NULL && start < end) {
+    for(int i = start; i < end; i++) {
+      dst -> items[i] = source -> items[i];
+    }
+  }
+}
+
+VECTOR* insert(const int index, double value, VECTOR** v) {
+  VECTOR* vn = initializeVector((*v) -> size + 1);
+  copyItems(0, index, *v, vn);
+  vn -> items[index] = value;
+  copyItems(index, (*v) -> size, *v, vn);
+  freeVector(v);
+  return vn;
+}

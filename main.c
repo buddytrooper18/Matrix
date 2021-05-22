@@ -22,7 +22,9 @@ int operationAsk() {
   char input = '\0';
   printf("enter operation: \nt - transpose\nx - scalar multiplication\n/ - scalar division\nd - determinant\ni - inverse\ne - exit\n");
   if (scanf("%c", &input) > 0) {
+    printf("operation: %c\n", input);
     switch(input) {
+      case '\n':
       case't':
         return TPOSE;
       case'x':
@@ -35,7 +37,6 @@ int operationAsk() {
         return INV;
       case'e':
         return EX;
-        break;
     }
   }
   return EX;
@@ -45,6 +46,7 @@ double inputFactor(const char*);
 
 bool doOperation(OPERATION code, MATRIX* m, MATRIX** result) {
   double factor;
+  printf("operation: %d", code);
   switch(code) {
     case TPOSE:
         return doTranspose(m, result);
@@ -85,17 +87,17 @@ int main(int argc, char const *argv[]) {
 
 
     freeMatrix(&matrix);*/
+    OPERATION op = EX;  
     printf("argc = %d\n", argc);
     for(int i = 0; i < argc; i++)
       printf("%s\n", argv[i]);
     MATRIX* m = createSetupMatrix(argc, argv);
     inputValues(m);
-    printf("matrixInput _ _ _ _ _ _ _\n");
-    printMatrix(m);
-    int code;
+    //printf("matrixInput _ _ _ _ _ _ _\n");
+    //printMatrix(m);
     MATRIX* result = NULL;
-    while((code = operationAsk())!= EX) {
-      doOperation(code, m, &result);
+    while((op = operationAsk()) != EX) {
+      doOperation(op, m, &result);
     }
     //operation(code);
     freeMatrix(&m);

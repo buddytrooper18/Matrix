@@ -14,4 +14,5 @@ size_t vectorItemCount(VECTOR*);
 void freeVector(VECTOR**);
 size_t vectorMemorySize(const size_t);
 void setupVectorItemsSize(size_t, VECTOR*);
+VECTOR* insert(const int, double, VECTOR**);
 #endif //__vector_h__//
