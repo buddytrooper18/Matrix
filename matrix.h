@@ -20,8 +20,9 @@ int inputNumbers();
 bool doTranspose(MATRIX*, MATRIX**);
 bool doScalarMultiplication(MATRIX*, const double, MATRIX**);
 bool doScalarDivision(MATRIX*, MATRIX**);
-bool doDeterminant(MATRIX*, MATRIX**);
+bool doDeterminant(MATRIX* m, double*);
 bool doInverse(MATRIX*, MATRIX**);
 void printMatrixRow(MATRIX*, int);
 void printMatrix(MATRIX*); 
+double matrixItem(MATRIX*, size_t, size_t);
 #endif//__matrix_h__

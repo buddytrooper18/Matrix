@@ -143,6 +143,10 @@ double inputFactor(const char* msg) {
   return scanf("%lg", &n) > 0 ? n : NAN;
 }
 
+double matrixItem(MATRIX* m, size_t r, size_t c) {
+  return (m -> rows[r]) -> items[c];
+}
+
 bool doTranspose(MATRIX* m, MATRIX** result) {
   *result = initializeMatrix(m->count, m->rows[0]->size);
   if(result != NULL) {
@@ -186,8 +190,33 @@ bool doScalarDivision(MATRIX* m, MATRIX** result) {
   return false;
 }
 
-bool doDeterminant(MATRIX* m, MATRIX** result) {
-  
+size_t rowCount(const MATRIX* m) {
+  return m != NULL ? m -> count: 0;
+}
+
+bool isSquareMatrix(const MATRIX* m) {
+  size_t r = rowCount(m);
+  return r > 0 && r == vectorItemCount(m -> rows[0]);
+}
+
+double cofactorTwo(MATRIX* m) {
+  return matrixItem(m, 0, 0) * matrixItem(m, 1, 1) - matrixItem(m, 1, 0) * matrixItem(m, 0, 1);
+}
+
+double cofactor(MATRIX* m, const row, const column) {
+  if(rowCount(m) == 2) {
+    return cofactorTwo(m);
+  }
+}
+
+bool doDeterminant(MATRIX* m, double* result) {
+  if(isSquareMatrix(m) && result != NULL) {
+    *result = 0;
+    for(int i = 0; i < vectorItemCount(m -> rows[0]); i++) {
+      *result += cofactor(m, 0, i);   
+    }
+    return true;
+  }
   return false;
 } 
  

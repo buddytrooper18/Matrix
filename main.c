@@ -12,6 +12,8 @@ doing this will help learning the following concepts:
 3) vector, matrix, and table operations
 */
 
+// bug: segmentation fault when row = 1
+
 //typedef Vector<double> VECTORD;
 
 //is matrix Vector<Vector<T>>?
@@ -46,7 +48,7 @@ double inputFactor(const char*);
 
 bool doOperation(OPERATION code, MATRIX* m, MATRIX** result) {
   double factor;
-  printf("operation: %d", code);
+  printf("operation: %d\t", code);
   switch(code) {
     case TPOSE:
         return doTranspose(m, result);
